@@ -1,0 +1,142 @@
+* { 
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+img#center-img{
+    display: block;
+    margin: 0 auto;
+}
+
+body{
+    background-image: url('../images/10.jpg');
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center; 
+}
+
+header{
+    border-bottom: 1px solid #e24fa8;
+    height: 70px;
+}
+
+header img {
+    margin-left: 20px;
+    bottom: -3px;
+    position: relative
+}
+
+header p {
+    font-size: 15px;
+    color: #777777;
+    padding-left: 5px;
+    line-height: 70px;
+    display: inline;
+}
+
+ul.online-users {
+    width: 200px;
+    padding: 20px;
+    height: 100vh;
+    float: left;
+    list-style-type: none;
+    overflow:hidden; 
+    overflow-y:auto;
+    position: fixed;
+    padding-top: 100px;
+}
+
+ul.online-users li{
+    font-size: 15px;
+    color: #777777;
+    padding: 3px;
+}
+
+ul.online-users li img{
+    bottom: -3px;
+    position: relative
+}
+.divider{
+    position:fixed;
+    left:15%;
+    top:25%;
+    bottom:25%;
+    border-left: 1px solid #e24fa8;
+}
+
+textarea{
+    border: 1px solid  #e24fa8; 
+    border-radius: 35px;
+    min-height: 30px;
+    color: #e24fa8;
+    position: fixed; 
+    bottom: 0;
+    padding: 20px; 
+    width: 70%; 
+    margin-bottom: 10px;
+    resize: none;
+    overflow:hidden;
+    font-size:14px;
+    right: 170px;
+}
+
+textarea:focus{
+    outline: none !important;
+    color: #e24fa8;
+}
+
+button{
+    background: #e24fa8;
+    color: #fff;
+    border-radius: 35px;
+    width: 140px;
+    height: 45px;
+    font-size: 13pt;
+    margin-bottom: 43px;
+    transition: all ease-in-out 0.5s;
+    position: fixed;
+    bottom: -25px;
+    right: 20px;
+    border: none;
+}
+
+button:focus { 
+    outline: none !important;
+}
+
+button:hover{
+    cursor: pointer;
+}
+
+ul#messages{
+    list-style-type: none;
+    margin-left: 223px;
+    margin-top:50px;
+    margin-bottom: 70px;
+}
+
+ul li#frnd-msg {
+    background: #e24fa8;
+    padding: 10px;
+    border-radius: 35px;
+    margin:7px;
+    color: #fff;
+    max-width: 30%;
+    word-wrap: break-word;
+    
+}
+
+ul li#my-msg{
+    background: #fff;
+    padding: 10px;
+    border-radius: 35px;
+    margin:7px;
+    color: #e24fa8;
+    border: 1px solid #e24fa8;
+    text-align: right;
+    max-width: 30%;
+    position: relative;
+    right: -741px;
+    word-wrap: break-word;
+}

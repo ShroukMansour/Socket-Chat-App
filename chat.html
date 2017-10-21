@@ -1,0 +1,101 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Chat App</title>
+    <link rel="stylesheet" href="css/chat.css">
+    <style>
+
+    </style>
+  </head>
+  <body>
+    <header>
+        <img src="images/7.jpg" width="20" height="20" alt=""><p>Invite your friends using this url and the room name :)</p>
+    </header>
+    <ul class="online-users">
+        <li><img src="images/7.jpg" width="20" height="20" alt=""> shrouk</li>
+        <li><img src="images/7.jpg" width="20" height="20" alt=""> shrouk</li>
+        <li><img src="images/7.jpg" width="20" height="20" alt=""> shrouk</li>
+        <li><img src="images/7.jpg" width="20" height="20" alt=""> shrouk</li>
+
+
+    </ul>
+
+    <div class="divider"></div>
+
+    <ul id="messages"></ul>
+
+    <form action="">
+        <p id="user-typing" style="color:red"></p>
+         <textarea name="" id="msg" cols="30" rows="1" placeholder="Type message" class='autoExpand' onkeypress="isTyping()"></textarea> 
+        <button>Send </button>
+    </form>
+
+
+    <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+
+
+    $(document)
+    .one('focus.autoExpand', 'textarea.autoExpand', function(){
+        var savedValue = this.value;
+        this.value = '';
+        this.baseScrollHeight = this.scrollHeight;
+        this.value = savedValue;
+    })
+    .on('input.autoExpand', 'textarea.autoExpand', function(){
+        var minRows = this.getAttribute('data-min-rows')|0, rows;
+        this.rows = minRows;
+        rows = Math.ceil((this.scrollHeight - this.baseScrollHeight) / 17);
+        this.rows = minRows + rows;
+    });
+
+
+
+    var socket = io('localhost:3000');
+    var name = prompt('Please enter your nickname');
+
+    socket.emit("join", { username: name, room:location.pathname });
+
+    $('form').submit(function(){
+
+        var msg = $('#msg').val();
+        socket.emit('chat message', { username: name, msg: msg, typing: false, room:location.pathname } );
+        $('#msg').val('');
+        $('#user-typing').html('');
+
+        return false;
+    });
+
+    socket.on('chat message', function(data){
+        var id = "";
+        if(data.username != name) {
+            id = "frnd-msg";
+            $('#messages').append($(`<li id="${id}">`).text(data.username + ': ' + data.msg));
+        }
+        else {
+            id="my-msg";
+            $('#messages').append($(`<li id="${id}">`).text(data.msg + ' :' + data.username));
+        }
+        if(!data.typing)
+            $('#user-typing').html('');
+    });
+
+    socket.on('typing', function(data) {
+        if(data.username != name) 
+            $('#user-typing').html(data.username + ' is typing...');
+     });
+
+     socket.on('connected users', function (connectedUsers) {
+         console.log("hi");
+         console.log(connectedUsers);
+     });
+
+    function isTyping() {
+        socket.emit('typing', {username: name, room: location.pathname});
+    }
+
+
+    </script>
+  </body>
+</html>
