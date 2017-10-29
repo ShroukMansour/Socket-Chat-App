@@ -3,9 +3,10 @@ var app = require('express')();
 var server = require('http').Server(app);
 var io = require('socket.io')(server); // the server that socket listen to
 
-var usersInRoom = [];
-
 server.listen(3000);
+
+var usersInRoom = [];
+var room;
 
 app.get('/', function (req, res) {
     res.sendFile(__dirname + '/index.html');
@@ -30,10 +31,22 @@ io.on('connection', function(socket){ // socket is a client joined
         console.log(newUser.name);
         socket.join(data.room);
         console.log(socket.id, "joined", data.room);   
+        io.in(data.room).emit('user-entered', newUser);
         io.in(data.room).emit('connected users', usersInRoom);
+        room = data.room;
     });
 
-    socket.on('disconnect', () => console.log("user left"));
+    socket.on('disconnect', function() {
+        console.log("user left ", socket.id);
+        for (var index = 0; index < usersInRoom.length; index++) {
+            var user = usersInRoom[index];
+            if(user.id == socket.id){
+                io.in(room).emit('user-left', user.id);
+                usersInRoom.splice(index, 1);
+                break;
+            }       
+        }
+    });
    
     socket.on('chat message', function (data) {
         io.to(data.room).emit("chat message", data);
@@ -47,10 +60,5 @@ io.on('connection', function(socket){ // socket is a client joined
         socket.leave(room);
         console.log(socket.id, "left", room);
     });
-
-//     socket.on('disconnect', function() {
-//         delete usersInRoom[socket.id];
-//         socket.to(data.room).emit("connected users", usersInRoom);
-//   });
 
 });

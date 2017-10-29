@@ -35,7 +35,7 @@ header p {
     display: inline;
 }
 
-ul.online-users {
+ul#online-users {
     width: 200px;
     padding: 20px;
     height: 100vh;
@@ -47,13 +47,13 @@ ul.online-users {
     padding-top: 100px;
 }
 
-ul.online-users li{
+ul#online-users li{
     font-size: 15px;
     color: #777777;
     padding: 3px;
 }
 
-ul.online-users li img{
+ul#online-users li img{
     bottom: -3px;
     position: relative
 }
