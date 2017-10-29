@@ -9,4 +9,4 @@ then you can type a room name, create it, open the same url in another tap and c
 
 video demo
 
-<a href="https://www.youtube.com/watch?v=Cs1D1DuvKrg&feature=youtu.be"><img src="https://github.com/ShroukMansour/Socket-Chat-App/blob/master/public/images/Screenshot%20(224).png?raw=true" alt="Video demo"></a>
+<a href="https://www.youtube.com/watch?v=Cs1D1DuvKrg&feature=youtu.be" target="_blank"><img src="https://github.com/ShroukMansour/Socket-Chat-App/blob/master/public/images/Screenshot%20(224).png?raw=true" alt="Video demo"></a>
